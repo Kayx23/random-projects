@@ -1,4 +1,4 @@
-from flask import Flask, url_for, render_template, request, session, redirect
+from flask import Flask, url_for, render_template, request, session, redirect, g
 
 app = Flask(__name__)
 app.secret_key = "some_secret_key"
@@ -13,6 +13,16 @@ class User:
 
 users = []
 users.append(User(id=1, username='Becca', password='1234'))
+users.append(User(id=2, username='Dong', password='8989'))
+
+
+@app.before_request
+def before_request():
+    if 'user_id' in session:
+        matched_user = [x for x in users if x.id == session['user_id']]
+        if matched_user:
+            # global object
+            g.user = matched_user[0]
 
 
 @app.route('/')
