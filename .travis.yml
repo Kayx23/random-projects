@@ -1,0 +1,15 @@
+language: python
+
+python:
+  - 3.8
+
+script:
+  - cd travis-CI-test
+  - pytest
+
+notifications:
+  email:
+    recipients:
+      - dengk7@mcmaster.ca
+    on_success: never
+    on_failure: always
